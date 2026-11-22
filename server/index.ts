@@ -33,7 +33,8 @@ initDb()
 
 const app = express()
 const isProd = process.env.NODE_ENV === 'production'
-const PORT = Number(process.env.ATM66_API_PORT || 3001)
+// Render (and most PaaS) inject PORT; ATM66_API_PORT remains for local/VPS.
+const PORT = Number(process.env.PORT || process.env.ATM66_API_PORT || 3001)
 const HOST = process.env.ATM66_HOST || (isProd ? '0.0.0.0' : '127.0.0.1')
 const CORS_ORIGIN = process.env.ATM66_CORS_ORIGIN || (isProd ? false : true)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))

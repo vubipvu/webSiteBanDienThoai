@@ -6,7 +6,12 @@ import { randomBytes } from 'node:crypto'
 import type { Request } from 'express'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-export const uploadsRoot = path.join(__dirname, '..', 'uploads')
+const persistRoot = process.env.ATM66_PERSIST_ROOT?.trim()
+export const uploadsRoot =
+  process.env.ATM66_UPLOADS_DIR?.trim() ||
+  (persistRoot
+    ? path.join(persistRoot, 'uploads')
+    : path.join(__dirname, '..', 'uploads'))
 
 fs.mkdirSync(path.join(uploadsRoot, 'products'), { recursive: true })
 fs.mkdirSync(path.join(uploadsRoot, 'brand'), { recursive: true })
