@@ -140,13 +140,13 @@ npm start
 
 Khuyến nghị:
 
-1. Reverse proxy (Nginx/Caddy) + **HTTPS**
-2. Proxy `/` → app; đảm bảo `/api` và `/uploads` tới cùng process (hoặc cấu hình tương đương)
-3. **Backup** định kỳ: thư mục `data/` (`.db`) + `uploads/`
-4. Firewall chỉ mở 80/443
-5. Cập nhật `robots.txt` (Sitemap) khi có domain
+1. Host **Node dài hạn** (Railway / Render / Fly / VPS) — SQLite + `uploads/` cần disk bền. **Không** chạy full stack trên Vercel serverless.
+2. Reverse proxy (Nginx/Caddy) + **HTTPS** (nếu VPS)
+3. Proxy `/` → app; đảm bảo `/api` và `/uploads` tới cùng process
+4. **Backup** định kỳ: thư mục `data/` (`.db`) + `uploads/`
+5. Firewall chỉ mở 80/443; cập nhật `robots.txt` (Sitemap) khi có domain
 
-Chi tiết checklist: xem thêm `docs` trong agent store hoặc file deploy readiness nếu có trong gói deploy.
+Vercel (chỉ static FE, giới hạn SQLite/uploads): xem **[VERCEL.md](./VERCEL.md)**.
 
 ## Bảo mật đã có
 
