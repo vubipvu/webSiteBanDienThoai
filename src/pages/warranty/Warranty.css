@@ -1,0 +1,52 @@
+.warranty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.warranty-grid section {
+  padding: 1.25rem 0;
+  border-top: 2px solid var(--accent);
+}
+
+.warranty-grid h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.85rem;
+}
+
+.warranty-grid ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+.warranty-note {
+  border-top: 1px solid var(--line);
+  padding-top: 1.75rem;
+}
+
+.warranty-note h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.85rem;
+}
+
+.warranty-note ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+@media (max-width: 860px) {
+  .warranty-grid {
+    grid-template-columns: 1fr;
+  }
+}

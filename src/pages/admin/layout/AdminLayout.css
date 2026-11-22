@@ -1,0 +1,245 @@
+.admin-loading {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f0f2f5;
+}
+
+.admin-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  background: #f0f2f5;
+  color: #262626;
+  font-family: var(--font-body);
+}
+
+.admin-side {
+  background: #001529;
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 0 1rem;
+  min-height: 100vh;
+}
+
+.admin-side__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 1.1rem 1.25rem;
+  color: #fff;
+}
+
+.admin-side__logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  background: #1890ff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.admin-side__brand strong {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.admin-side nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0 0.55rem;
+  flex: 1;
+}
+
+.admin-side__link {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.admin-side__link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.admin-side__link.is-active {
+  background: #1890ff;
+  color: #fff;
+}
+
+.admin-side__store {
+  margin: 1rem 1.1rem 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+}
+
+.admin-side__store:hover {
+  color: #1890ff;
+}
+
+.admin-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.admin-top {
+  height: 56px;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+}
+
+.admin-top__search {
+  color: #8c8c8c;
+  font-size: 1.1rem;
+}
+
+.admin-top__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.admin-top__bell {
+  position: relative;
+  cursor: default;
+}
+
+.admin-top__bell span {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 0.65rem;
+  border-radius: 999px;
+  min-width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+  padding: 0 3px;
+}
+
+.admin-top__user {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.admin-top__avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1890ff;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.admin-top__logout {
+  border: 1px solid #d9d9d9;
+  background: #fff;
+  border-radius: 6px;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.admin-content {
+  padding: 1.25rem;
+}
+
+.admin-panel {
+  background: #fff;
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.admin-panel__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.admin-panel__head h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-panel th,
+.admin-panel td {
+  text-align: left;
+  padding: 0.65rem 0.4rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.admin-panel th {
+  color: #8c8c8c;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.admin-error {
+  color: #cf1322;
+  padding: 0.5rem 0;
+}
+
+@media (max-width: 860px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-side {
+    min-height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.65rem;
+  }
+
+  .admin-side__brand {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .admin-side nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+
+  .admin-side__store {
+    margin: 0 0.5rem;
+  }
+}

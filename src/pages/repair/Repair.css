@@ -1,0 +1,199 @@
+.repair-hero {
+  background:
+    radial-gradient(ellipse 70% 80% at 10% 20%, rgba(0, 184, 154, 0.16), transparent 55%),
+    linear-gradient(180deg, rgba(11, 18, 32, 0.04), transparent 60%);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2.25rem;
+}
+
+.repair-hero__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: start;
+  padding: clamp(2rem, 5vw, 3.25rem) 0;
+}
+
+.repair-hero__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+  margin-bottom: 0.65rem;
+}
+
+.repair-hero h1 {
+  font-size: clamp(1.7rem, 3.6vw, 2.45rem);
+  margin-bottom: 0.85rem;
+  max-width: 16ch;
+}
+
+.repair-hero__lead {
+  color: var(--ink);
+  line-height: 1.55;
+  margin-bottom: 0.65rem;
+  max-width: 36rem;
+  font-weight: 650;
+}
+
+.repair-hero__sub {
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 1.35rem;
+}
+
+.repair-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.repair-hero .zalo-qr-card {
+  justify-self: end;
+  width: min(100%, 340px);
+}
+
+.repair-block {
+  margin-bottom: 2.75rem;
+}
+
+.repair-block h2 {
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  margin-bottom: 0.45rem;
+}
+
+.repair-block__lead {
+  color: var(--muted);
+  max-width: 36rem;
+  line-height: 1.55;
+  margin-bottom: 1.35rem;
+}
+
+.repair-promises {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.15rem;
+}
+
+.repair-promise {
+  border-top: 2px solid var(--accent);
+  padding-top: 0.95rem;
+}
+
+.repair-promise h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.4rem;
+}
+
+.repair-promise p {
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: 0.95rem;
+}
+
+.repair-split {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 2rem;
+}
+
+.repair-services {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.repair-services li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 650;
+}
+
+.repair-steps {
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+}
+
+.repair-steps li {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 0.85rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.repair-steps strong {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--accent-deep);
+  letter-spacing: -0.03em;
+  font-size: 1.25rem;
+}
+
+.repair-steps h3 {
+  font-size: 1.05rem;
+  margin: 0 0 0.25rem;
+}
+
+.repair-steps p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.repair-cta-band {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 0 2.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.repair-cta-band h2 {
+  font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+  margin-bottom: 0.4rem;
+}
+
+.repair-cta-band p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.repair-cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+@media (max-width: 900px) {
+  .repair-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .repair-hero .zalo-qr-card {
+    justify-self: stretch;
+    width: 100%;
+    max-width: none;
+  }
+
+  .repair-promises {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .repair-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .repair-promises {
+    grid-template-columns: 1fr;
+  }
+}

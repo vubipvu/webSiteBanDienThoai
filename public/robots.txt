@@ -1,0 +1,10 @@
+# ATM66 Mobile — cho phép index trang khách, chặn khu vực quản trị
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard
+
+# Khi có domain: bỏ comment và điền URL thật
+# Sitemap: https://YOUR-DOMAIN/sitemap.xml

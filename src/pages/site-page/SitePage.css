@@ -1,0 +1,256 @@
+.site-page__hero {
+  position: relative;
+  min-height: min(52vh, 420px);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.site-page__hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) brightness(0.72);
+}
+
+.site-page__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, rgba(7, 14, 26, 0.88) 0%, rgba(7, 14, 26, 0.45) 55%, rgba(7, 14, 26, 0.2) 100%),
+    linear-gradient(0deg, rgba(7, 14, 26, 0.55), transparent 50%);
+}
+
+.site-page__hero-copy {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  padding: 2.5rem 0 2.75rem;
+  max-width: 40rem;
+}
+
+.site-page__eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.65rem;
+}
+
+.site-page__eyebrow--ink {
+  color: var(--accent-deep);
+}
+
+.site-page__hero-copy h1 {
+  font-size: clamp(1.85rem, 4vw, 2.75rem);
+  margin-bottom: 0.75rem;
+}
+
+.site-page__subtitle {
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+  max-width: 34rem;
+}
+
+.site-page__body {
+  padding-bottom: 2.5rem;
+}
+
+.site-page__article {
+  max-width: 42rem;
+  margin-bottom: 2rem;
+}
+
+.site-page__para {
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 1.05rem;
+  margin: 0 0 1.15rem;
+}
+
+.site-page__point {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: 1rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.site-page__point:first-of-type {
+  border-top: 1px solid var(--line);
+}
+
+.site-page__point > span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.04em;
+  color: var(--accent-deep);
+  line-height: 1;
+}
+
+.site-page__point h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.35rem;
+}
+
+.site-page__point p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.site-page__map {
+  margin: 2rem 0 2.25rem;
+  max-width: 52rem;
+}
+
+.site-page__map h2 {
+  font-size: 1.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.site-page__map-addr {
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+
+.site-page__map-frame {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #e8eef5;
+  aspect-ratio: 16 / 9;
+  max-height: 420px;
+}
+
+.site-page__map-frame iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  border: 0;
+  display: block;
+}
+
+.site-page__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.site-page__layout--split {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.site-page__aside {
+  position: sticky;
+  top: calc(var(--nav-h) + 1rem);
+}
+
+.site-page__aside .zalo-qr-card {
+  width: 100%;
+  max-width: 340px;
+  margin-left: auto;
+}
+
+.site-page__shop {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.site-page__shop p {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 0.85rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.site-page__shop strong {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.site-page__shop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.site-page__deals {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.site-page__deals h2 {
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+}
+
+.site-page__muted {
+  color: var(--muted);
+}
+
+.site-page__deal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.site-page__deal {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.site-page__deal img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  background: var(--mist);
+}
+
+.site-page__deal h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.site-page__deal p span {
+  color: var(--muted);
+  text-decoration: line-through;
+  margin-left: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.site-page__deal em {
+  font-style: normal;
+  color: var(--warm);
+  font-weight: 650;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .site-page__layout--split {
+    grid-template-columns: 1fr;
+  }
+
+  .site-page__aside .zalo-qr-card {
+    margin: 0;
+    max-width: none;
+  }
+}
