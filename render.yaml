@@ -1,0 +1,28 @@
+# ATM66 Mobile — Render Blueprint
+# Free Web Service: ok để thử / site công khai sớm.
+# Persistent disk KHÔNG có trên Free — xem RENDER.md (nâng Starter + disk).
+services:
+  - type: web
+    name: atm66
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: ATM66_HOST
+        value: "0.0.0.0"
+      # Render injects PORT — app listens on process.env.PORT
+      - key: ATM66_JWT_SECRET
+        sync: false
+      - key: ATM66_ADMIN_USER
+        sync: false
+      - key: ATM66_ADMIN_PASS
+        sync: false
+      # After upgrading off Free + attaching disk at /var/data, set:
+      # - key: ATM66_PERSIST_ROOT
+      #   value: /var/data

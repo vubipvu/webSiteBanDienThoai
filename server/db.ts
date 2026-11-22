@@ -7,7 +7,10 @@ import { fileURLToPath } from 'node:url'
 import { dashboardOrders, products } from '../src/data/products.ts'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const dataDir = path.join(__dirname, '..', 'data')
+const persistRoot = process.env.ATM66_PERSIST_ROOT?.trim()
+const dataDir =
+  process.env.ATM66_DATA_DIR?.trim() ||
+  (persistRoot ? path.join(persistRoot, 'data') : path.join(__dirname, '..', 'data'))
 const dbPath = path.join(dataDir, 'atm66.db')
 
 fs.mkdirSync(dataDir, { recursive: true })

@@ -148,6 +148,14 @@ Khuyến nghị:
 
 Chi tiết checklist: xem thêm `docs` trong agent store hoặc file deploy readiness nếu có trong gói deploy.
 
+### Host công khai (Render)
+
+Ưu tiên **Render Web Service** (Node 22, `npm start`) thay vì Vercel serverless. Xem **[RENDER.md](./RENDER.md)** + Blueprint [`render.yaml`](./render.yaml).
+
+- Free: được, nhưng **spin-down / cold start** và **không có persistent disk** (SQLite + uploads mất khi ngủ/redeploy).
+- Ổn định (DB + ảnh): Starter + disk mount `/var/data` + `ATM66_PERSIST_ROOT=/var/data`.
+- Domain: mua riêng, gắn Custom Domain trên Render (DNS CNAME/A).
+
 ## Bảo mật đã có
 
 - JWT bắt buộc khi `NODE_ENV=production`
