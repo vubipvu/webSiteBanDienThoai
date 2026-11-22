@@ -4,16 +4,30 @@ import bcrypt from 'bcryptjs'
 import { db } from './db.ts'
 
 const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
 const envSecret = process.env.ATM66_JWT_SECRET?.trim()
+const DEV_FALLBACK = 'atm66-dev-secret-change-later'
 
-if (isProd && (!envSecret || envSecret === 'atm66-dev-secret-change-later')) {
+function isStrongJwtSecret(secret: string | undefined) {
+  return Boolean(
+    secret &&
+      secret !== DEV_FALLBACK &&
+      secret.length >= 32 &&
+      !/^(change|secret|password|test)/i.test(secret),
+  )
+}
+
+// Hosted / non-dev runtimes must not fall back to a hardcoded JWT secret.
+if (!isDev && !isStrongJwtSecret(envSecret)) {
   console.error(
-    '[ATM66] Production yêu cầu ATM66_JWT_SECRET mạnh (không dùng secret mặc định).',
+    '[ATM66] Cần ATM66_JWT_SECRET mạnh (≥32 ký tự). Chỉ môi trường NODE_ENV=development được dùng secret dev.',
   )
   process.exit(1)
 }
 
-const JWT_SECRET = envSecret || 'atm66-dev-secret-change-later'
+const JWT_SECRET = isStrongJwtSecret(envSecret)
+  ? (envSecret as string)
+  : DEV_FALLBACK
 
 export type AuthUser = {
   id: number

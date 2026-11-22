@@ -133,27 +133,31 @@ export function initDb() {
     .prepare(`SELECT id, username FROM users WHERE role = 'admin' ORDER BY id ASC LIMIT 1`)
     .get() as { id: number; username: string } | undefined
   if (!adminRow) {
-    const ADMIN_USER =
-      process.env.ATM66_ADMIN_USER?.trim() ||
-      `atm66_${crypto.randomBytes(3).toString('hex')}`
+    const envUser = process.env.ATM66_ADMIN_USER?.trim()
+    const envPass = process.env.ATM66_ADMIN_PASS?.trim()
+    const fromEnv = Boolean(envUser && envPass)
+    // Production/hosted: never bootstrap from random + plaintext file.
+    if (!fromEnv && process.env.NODE_ENV !== 'development') {
+      console.error(
+        '[ATM66] Seed admin lần đầu cần ATM66_ADMIN_USER và ATM66_ADMIN_PASS (không ghi plaintext ra disk).',
+      )
+      process.exit(1)
+    }
+    const ADMIN_USER = envUser || `atm66_${crypto.randomBytes(3).toString('hex')}`
     const ADMIN_PASS =
-      process.env.ATM66_ADMIN_PASS?.trim() ||
-      `${crypto.randomBytes(12).toString('base64url')}Aa1!`
+      envPass || `${crypto.randomBytes(12).toString('base64url')}Aa1!`
     const adminHash = bcrypt.hashSync(ADMIN_PASS, 10)
     db.prepare(
       `INSERT INTO users (username, password_hash, role, display_name, phone)
        VALUES (?, ?, 'admin', ?, ?)`,
     ).run(ADMIN_USER, adminHash, 'Quản trị ATM66', '0901339616')
-    try {
-      const credPath = path.join(dataDir, '.admin-credentials')
-      fs.writeFileSync(
-        credPath,
-        `ATM66 admin (generated once — đổi ngay khi deploy)\nuser: ${ADMIN_USER}\npass: ${ADMIN_PASS}\n`,
-        { mode: 0o600 },
+    if (fromEnv) {
+      console.log(`[ATM66] Admin created from env: user=${ADMIN_USER}`)
+    } else {
+      // Local development only — never write credentials to a file.
+      console.log(
+        `[ATM66] Admin created (dev only): user=${ADMIN_USER} pass=${ADMIN_PASS}`,
       )
-      console.log(`[ATM66] Admin created. Credentials written to ${credPath}`)
-    } catch {
-      console.log(`[ATM66] Admin created: user=${ADMIN_USER} (set ATM66_ADMIN_PASS next time)`)
     }
   } else if (process.env.ATM66_ADMIN_USER && process.env.ATM66_ADMIN_PASS) {
     const adminHash = bcrypt.hashSync(process.env.ATM66_ADMIN_PASS, 10)

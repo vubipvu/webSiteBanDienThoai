@@ -37,7 +37,8 @@ Lần đầu chạy, SQLite tự tạo tại `data/` và seed dữ liệu mẫu.
 ### Tài khoản admin
 
 - Set `ATM66_ADMIN_USER` + `ATM66_ADMIN_PASS` trước lần seed đầu (khuyến nghị khi deploy).
-- Nếu không set, server **sinh ngẫu nhiên** và ghi vào `data/.admin-credentials` (không commit file này).
+- Production/hosted: **bắt buộc** set `ATM66_ADMIN_USER` / `ATM66_ADMIN_PASS` (không ghi plaintext ra disk).
+- Local `NODE_ENV=development`: nếu thiếu env, server sinh ngẫu nhiên và in ra console lần đầu.
 - Khi đã có admin trong DB, chỉ cập nhật lại nếu cả hai biến env đều được set.
 
 ## Scripts
