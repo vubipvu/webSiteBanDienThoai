@@ -22,6 +22,6 @@ Phải thấy **cả hai** dòng:
 ## Admin / Danh mục
 
 - http://127.0.0.1:5173/admin/login  
-- Set `ATM66_ADMIN_USER` / `ATM66_ADMIN_PASS`, hoặc xem file `data/.admin-credentials` sau lần chạy đầu.
+- Set `ATM66_ADMIN_USER` / `ATM66_ADMIN_PASS`, hoặc xem console lần seed đầu (dev) — không còn file `.admin-credentials`.
 
 Nếu vẫn lỗi: xem terminal có đỏ không; tắt hết `node` cũ rồi chạy lại `npm run dev`.

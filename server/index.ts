@@ -19,6 +19,7 @@ import {
   unlinkUpload,
   uploadsRoot,
 } from './media.ts'
+import { isSafeMapsEmbedUrl, sanitizeMapsEmbedUrl } from './security.ts'
 
 const EDITABLE_PAGE_SLUGS = new Set([
   'gioi-thieu',
@@ -40,11 +41,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const distRoot = path.join(__dirname, '..', 'dist')
 
 const loginAttempts = new Map<string, { count: number; resetAt: number }>()
+const trustProxy = process.env.ATM66_TRUST_PROXY === '1'
+if (trustProxy) app.set('trust proxy', 1)
 
 function clientIp(req: express.Request) {
-  const xf = req.headers['x-forwarded-for']
-  if (typeof xf === 'string' && xf.trim()) return xf.split(',')[0].trim()
-  return req.ip || req.socket.remoteAddress || 'unknown'
+  // Prefer socket address; only use Express req.ip (proxy-aware) when trust proxy is on.
+  if (trustProxy) return req.ip || req.socket.remoteAddress || 'unknown'
+  return req.socket.remoteAddress || 'unknown'
 }
 
 function tooManyLogins(ip: string) {
@@ -154,9 +157,11 @@ app.get('/api/settings/public', (_req, res) => {
       '180 Bùi Đình Tuý, Bình Thạnh, Hồ Chí Minh, Việt Nam',
     ),
     contactName: setting('contact_name', 'Cô Long'),
-    mapsEmbedUrl: setting(
-      'maps_embed_url',
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0445537580244!2d106.70073577586874!3d10.807899658610246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752900770e229b%3A0x63b084c96d6faf7a!2sATM66%20Mobile!5e0!3m2!1svi!2s!4v1795343450554!5m2!1svi!2s',
+    mapsEmbedUrl: sanitizeMapsEmbedUrl(
+      setting(
+        'maps_embed_url',
+        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.0445537580244!2d106.70073577586874!3d10.807899658610246!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752900770e229b%3A0x63b084c96d6faf7a!2sATM66%20Mobile!5e0!3m2!1svi!2s!4v1795343450554!5m2!1svi!2s',
+      ),
     ),
   })
 })
@@ -353,28 +358,19 @@ app.put(
   },
 )
 
-app.get('/api/articles', (req, res) => {
-  const all = req.query.all === '1'
-  const articles = all
-    ? db
-        .prepare(
-          `SELECT a.*, p.name AS product_name, p.category AS product_category, p.image AS product_image, p.price AS product_price, p.price_mode AS product_price_mode
-           FROM articles a
-           LEFT JOIN products p ON p.id = a.product_id
-           ORDER BY a.created_at DESC`,
-        )
-        .all()
-    : db
-        .prepare(
-          `SELECT a.id, a.title, a.slug, a.excerpt, a.cover, a.created_at, a.product_id,
-                  p.name AS product_name, p.category AS product_category, p.image AS product_image,
-                  p.price AS product_price, p.price_mode AS product_price_mode
-           FROM articles a
-           LEFT JOIN products p ON p.id = a.product_id
-           WHERE a.published = 1
-           ORDER BY a.created_at DESC`,
-        )
-        .all()
+app.get('/api/articles', (_req, res) => {
+  // Public list: published posts only. Drafts stay on /api/admin/articles (requireAdmin).
+  const articles = db
+    .prepare(
+      `SELECT a.id, a.title, a.slug, a.excerpt, a.cover, a.created_at, a.product_id,
+              p.name AS product_name, p.category AS product_category, p.image AS product_image,
+              p.price AS product_price, p.price_mode AS product_price_mode
+       FROM articles a
+       LEFT JOIN products p ON p.id = a.product_id
+       WHERE a.published = 1
+       ORDER BY a.created_at DESC`,
+    )
+    .all()
   res.json({ articles })
 })
 
@@ -1076,7 +1072,20 @@ app.patch('/api/admin/appearance', requireAdmin, (req, res) => {
     'maps_embed_url',
   ]
   for (const k of allowed) {
-    if (body[k] != null) setSetting(k, String(body[k]))
+    if (body[k] == null) continue
+    if (k === 'maps_embed_url') {
+      const raw = String(body[k]).trim()
+      if (raw && !isSafeMapsEmbedUrl(raw)) {
+        res.status(400).json({
+          error:
+            'maps_embed_url chỉ nhận HTTPS Google Maps embed (/maps/embed).',
+        })
+        return
+      }
+      setSetting(k, raw)
+      continue
+    }
+    setSetting(k, String(body[k]))
   }
   res.json({ ok: true })
 })

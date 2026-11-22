@@ -20,13 +20,36 @@ type Props = {
   slug: string
 }
 
+function isSafeMapsEmbedUrl(raw: string) {
+  const value = raw.trim()
+  if (!value) return false
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:') return false
+    const host = url.hostname.toLowerCase()
+    const allowedHost =
+      host === 'google.com' ||
+      host === 'www.google.com' ||
+      host === 'maps.google.com' ||
+      host.endsWith('.google.com') ||
+      host === 'google.com.vn' ||
+      host === 'www.google.com.vn'
+    return allowedHost && url.pathname.includes('/maps/embed')
+  } catch {
+    return false
+  }
+}
+
 export function SitePage({ slug }: Props) {
   const { appearance } = useAppearance()
   const [page, setPage] = useState<SitePageData | null>(null)
   const [deals, setDeals] = useState<Product[]>([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
-  const showMap = slug === 'gioi-thieu' && Boolean(appearance.mapsEmbedUrl)
+  const safeMapUrl = isSafeMapsEmbedUrl(appearance.mapsEmbedUrl)
+    ? appearance.mapsEmbedUrl
+    : ''
+  const showMap = slug === 'gioi-thieu' && Boolean(safeMapUrl)
   const showQr = slug === 'sua-may' || slug === 'lien-he'
   const showDeals = slug === 'khuyen-mai'
   const showShop = slug === 'lien-he'
@@ -221,7 +244,7 @@ export function SitePage({ slug }: Props) {
             <div className="site-page__map-frame">
               <iframe
                 title="ATM66 Mobile trên Google Maps"
-                src={appearance.mapsEmbedUrl}
+                src={safeMapUrl}
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
